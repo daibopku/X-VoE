@@ -1,0 +1,9 @@
+yapf
+absl-py
+numpy
+pandas
+seaborn
+tensorflow
+tensorflow_probability
+tensorboardX
+ipykernel
