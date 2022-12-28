@@ -1,5 +1,5 @@
-# PhyDNet - Disentangling Physical Dynamics from Unknown Factors for Unsupervised Video Prediction
-[Vincent Le Guen](https://www.linkedin.com/in/vincentleguen/),  [Nicolas Thome](http://cedric.cnam.fr/~thomen/)
+# X-VoE - eXplaining Violation of Expectation in Physical Events
+[Bo Dai](https://daibopku.github.io/daibo/),  [Yixin Zhu](https://yzhu.io/), 
 
 Code for our ArXiv paper "X-VoE: eXplaining Violation of Expectation in Physical Events": 
 
