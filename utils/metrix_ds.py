@@ -1,6 +1,5 @@
 import pandas as pd
 import tensorflow as tf
-import seaborn as sns
 import os
 
 
@@ -56,26 +55,9 @@ def cal_holistic(data, type_name, model_name, figure_dir):
     out = {"Type": [type_name], "Model": [model_name], "Metrix": out}
     ds = pd.DataFrame(out)
     ds['Metrix'] = ds["Metrix"] * 100.0
-
-    sns.set_theme(style="whitegrid")
-    # Draw a nested barplot by species and sex
-    g = sns.catplot(data=ds,
-                    kind="bar",
-                    x="Type",
-                    y="Metrix",
-                    hue="Model",
-                    errorbar="sd",
-                    palette="dark",
-                    alpha=.6,
-                    height=4,
-                    aspect=1.0)
-    g.despine(left=True)
-    g.set_axis_labels("", "Holistic metric (%)")
-    for ax in g.axes[0]:
-        ax.axhline(100, ls="-", color="red")
     if not os.path.exists(figure_dir + '/holistic'):
         os.makedirs(figure_dir + '/holistic')
-    g.savefig(figure_dir + '/holistic/{}_{}.png'.format(type_name, model_name))
+    ds.to_csv(figure_dir + '/holistic/{}_{}.csv'.format(type_name, model_name))
     return ds
 
 
@@ -104,34 +86,10 @@ def cal_comparative(data, type_name, model_name, figure_dir):
         return 0
     ds = pd.DataFrame(out)
     ds['Metrix'] = ds["Metrix"] * 100.0
-
-    sns.set_theme(style="whitegrid")
-    # Draw a nested barplot by species and sex
-    g = sns.catplot(data=ds,
-                    kind="bar",
-                    x="Situation",
-                    col="Type",
-                    y="Metrix",
-                    hue="Model",
-                    errorbar="sd",
-                    palette="dark",
-                    alpha=.6,
-                    height=4,
-                    aspect=1.0)
-    g.despine(left=True)
-    g.set_axis_labels("", "Comparative metric (%)")
-    for ax in g.axes[0]:
-        if len(data) == 6:
-            ax.axhline(y=100, xmin=0.03, xmax=0.30, ls="-", color="red")
-            ax.axhline(y=50, xmin=0.37, xmax=0.63, ls="-", color="red")
-            ax.axhline(y=100, xmin=0.70, xmax=0.97, ls="-", color="red")
-        elif len(data) == 4:
-            ax.axhline(y=100, xmin=0.05, xmax=0.45, ls="-", color="red")
-            ax.axhline(y=50, xmin=0.55, xmax=0.95, ls="-", color="red")
     if not os.path.exists(figure_dir + '/comparative'):
         os.makedirs(figure_dir + '/comparative')
-    g.savefig(figure_dir +
-              '/comparative/{}_{}.png'.format(type_name, model_name))
+    ds.to_csv(figure_dir +
+              '/comparative/{}_{}.csv'.format(type_name, model_name))
     return ds
 
 
@@ -161,27 +119,9 @@ def cal_relative(data, type_name, model_name, figure_dir):
         return 0
     ds = pd.DataFrame(out)
     ds['Metrix'] = ds["Metrix"] * 100.0
-
-    sns.set_theme(style="whitegrid")
-    # Draw a nested barplot by species and sex
-    g = sns.catplot(data=ds,
-                    kind="bar",
-                    x="Situation",
-                    col="Type",
-                    y="Metrix",
-                    hue="Model",
-                    errorbar="sd",
-                    palette="dark",
-                    alpha=.6,
-                    height=4,
-                    aspect=1.0)
-    g.despine(left=True)
-    g.set_axis_labels("", "Relative metric (%)")
-    for ax in g.axes[0]:
-        ax.axhline(100, ls="-", color="red")
     if not os.path.exists(figure_dir + '/relative'):
         os.makedirs(figure_dir + '/relative')
-    g.savefig(figure_dir + '/relative/{}_{}.png'.format(type_name, model_name))
+    ds.to_csv(figure_dir + '/relative/{}_{}.csv'.format(type_name, model_name))
     return ds
 
 
