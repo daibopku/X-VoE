@@ -1,11 +1,11 @@
+import os
 import tensorflow as tf
 
 
 # @tf.function
 def build_data(split, shuffle=False):
     """Build CLEVR dataset."""
-    num_file = 100
-    file_path_base = 'dataset/'
+    file_path_base = 'X-VoE/'
 
     # file_path_base = '/scratch/LargeTaskPlatform/daibo/VoE_dataset/'
     def _parse_tfr_element(element):
@@ -41,61 +41,51 @@ def build_data(split, shuffle=False):
 
     AUTOTUNE = tf.data.AUTOTUNE
     if split == "train":
-        file_path = file_path_base + '/train/'
+        num_file = 100
+        file_path = os.path.join(file_path_base, 'train')
         filename = [
-            file_path + "train-part-{:0>3}.tfrecord".format(i)
+            os.path.join(file_path, "train-part-{:0>3}.tfrecord".format(i))
             for i in range(num_file)
         ]
-        if shuffle:
-            # filename = os.listdir(file_path)
-            filename = tf.data.Dataset.from_tensor_slices(filename)
-            filename = filename.shuffle(num_file)
-            ds = filename.interleave(
-                lambda x: tf.data.TFRecordDataset(x, compression_type="GZIP"),
-                cycle_length=num_file,
-                block_length=1)
-            ds = ds.shuffle(1000)
-        else:
-            ds = tf.data.TFRecordDataset(filename, compression_type="GZIP")
-        ds = ds.map(_parse_tfr_element, num_parallel_calls=AUTOTUNE)
     elif split in ["collision", "blocking", "continuity"]:
-        file_path = file_path_base + split + '/'
+        num_file = 6
+        file_path = os.path.join(file_path_base, split)
         filename = [
-            file_path + "eval-part-{:0>3}.tfrecord".format(i) for i in range(6)
+            os.path.join(file_path, "eval-part-{:0>3}.tfrecord".format(i))
+            for i in range(num_file)
         ]
-        if shuffle:
-            filename = tf.data.Dataset.from_tensor_slices(filename)
-            filename = filename.shuffle(num_file)
-            ds = filename.interleave(
-                lambda x: tf.data.TFRecordDataset(x, compression_type="GZIP"),
-                cycle_length=num_file,
-                block_length=1)
-            ds = ds.shuffle(1000)
-        else:
-            ds = tf.data.TFRecordDataset(filename, compression_type="GZIP")
-        ds = ds.map(_parse_tfr_element, num_parallel_calls=AUTOTUNE)
     elif split in ["permanence"]:
-        file_path = file_path_base + split + '/'
+        num_file = 4
+        file_path = os.path.join(file_path_base, split)
         filename = [
-            file_path + "eval-part-{:0>3}.tfrecord".format(i) for i in range(4)
+            os.path.join(file_path, "eval-part-{:0>3}.tfrecord".format(i))
+            for i in range(4)
         ]
-        if shuffle:
-            filename = tf.data.Dataset.from_tensor_slices(filename)
-            filename = filename.shuffle(num_file)
-            ds = filename.interleave(
-                lambda x: tf.data.TFRecordDataset(x, compression_type="GZIP"),
-                cycle_length=num_file,
-                block_length=1)
-            ds = ds.shuffle(1000)
-        else:
-            ds = tf.data.TFRecordDataset(filename, compression_type="GZIP")
-        ds = ds.map(_parse_tfr_element, num_parallel_calls=AUTOTUNE)
+    elif split == "eval":
+        num_file = 4
+        eval_list = ["collision", "blocking", "permanence", "continuity"]
+        file_path = file_path_base + '/eval/'
+        filename = [
+            file_path_base + i + '/' + "eval-part-000.tfrecord"
+            for i in eval_list
+        ]
     else:
         raise ValueError("Error dataset type")
+    if shuffle:
+        filename = tf.data.Dataset.from_tensor_slices(filename)
+        filename = filename.shuffle(num_file)
+        ds = filename.interleave(
+            lambda x: tf.data.TFRecordDataset(x, compression_type="GZIP"),
+            cycle_length=num_file,
+            block_length=1)
+        ds = ds.shuffle(1000)
+    else:
+        ds = tf.data.TFRecordDataset(filename, compression_type="GZIP")
+    ds = ds.map(_parse_tfr_element, num_parallel_calls=AUTOTUNE)
     return ds
 
 
-def debug_iterator(batch_size, split, **kwargs):
+def load_data(batch_size, split, **kwargs):
     ds = build_data(split=split, **kwargs)
     ds = ds.batch(batch_size, drop_remainder=True)
     return ds

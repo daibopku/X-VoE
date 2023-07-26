@@ -44,18 +44,16 @@ def build_data(train_size, test_size, shuffle=False):
         image = tf.io.parse_tensor(raw_image, out_type=tf.uint8)
         image = tf.cast(image, tf.float32)
         image = ((image / 255.0) - 0.5) * 2.0
-        # image = tf.clip_by_value(image, -1.0, 1.0)
         mask = tf.io.parse_tensor(raw_mask, out_type=tf.uint8)
         mask = tf.cast(mask, tf.float32)
-        # mask = tf.clip_by_value(mask, 0.0, 1.0)
         image = tf.expand_dims(image, axis=0)
         mask = tf.expand_dims(mask, axis=0)
         return {"image": image, "mask": mask}
 
     AUTOTUNE = tf.data.AUTOTUNE
-    file_path = 'dataset/image/'
+    file_path = 'X-VoE/image/'
     filename = [
-        file_path + "train-part-{:0>3}.tfrecord".format(i)
+        os.path.join(file_path, "train-part-{:0>3}.tfrecord".format(i))
         for i in range(num_file)
     ]
     # filename = os.listdir(file_path)
@@ -76,23 +74,7 @@ def build_data(train_size, test_size, shuffle=False):
     return train_ds, test_ds
 
 
-def build_data_iterator(batch_size,
-                        split,
-                        train_size=60000,
-                        test_size=20000,
-                        **kwargs):
-    train_ds, test_ds = build_data(split=split,
-                                   train_size=train_size,
-                                   test_size=test_size,
-                                   **kwargs)
-    train_ds = train_ds.repeat(-1)
-    train_ds = train_ds.batch(batch_size, drop_remainder=True)
-    test_ds = test_ds.repeat(-1)
-    test_ds = test_ds.batch(batch_size, drop_remainder=True)
-    return iter(train_ds), iter(test_ds)
-
-
-def debug_iterator(batch_size, train_size=60000, test_size=20000, **kwargs):
+def load_data(batch_size, train_size=60000, test_size=20000, **kwargs):
     train_ds, test_ds = build_data(train_size=train_size,
                                    test_size=test_size,
                                    **kwargs)

@@ -59,12 +59,6 @@ else:
     log_fn = logging.warning
 
 
-def sort_groups_oh(true_groups_oh):
-    sort_sum = tf.reduce_sum(true_groups_oh, axis=1)
-    sort_arg = tf.argsort(sort_sum, axis=-1, direction='DESCENDING')
-    return tf.gather(true_groups_oh, sort_arg, axis=2, batch_dims=1)
-
-
 def data_init(batch):
     img = batch['image']
     mask = batch['mask']
@@ -103,12 +97,12 @@ def main(argv):
     viz = TensorboardViz(logdir=FLAGS.tensorboard_dir)
 
     # Build dataset iterators, optimizers and model.
-    train_size = 800 * 15
-    test_size = 200 * 15
-    train_ds, test_ds = data_utils.debug_iterator(batch_size,
-                                                  train_size=train_size,
-                                                  test_size=test_size,
-                                                  shuffle=True)
+    train_size = 80000 * 15
+    test_size = 20000 * 15
+    train_ds, test_ds = data_utils.load_data(batch_size,
+                                             train_size=train_size,
+                                             test_size=test_size,
+                                             shuffle=True)
     train_ds = mirrored_strategy.experimental_distribute_dataset(train_ds)
     test_ds = mirrored_strategy.experimental_distribute_dataset(test_ds)
 
@@ -170,7 +164,6 @@ def main(argv):
                 p_x *= masks
                 p_x = tf.reduce_sum(p_x, axis=2, keepdims=True)
                 p_x = p_x + (1.0 - tf.expand_dims(mask_sum, axis=2))
-                # p_x = tf.math.log(p_x + 1e-10)
                 p_x = tf.reduce_sum(p_x, axis=[3, 4, 5])
                 loss_value = -1.0 * tf.reduce_mean(
                     p_x, axis=[1, 2]) + beta * tf.reduce_mean(kl_z,
@@ -212,7 +205,6 @@ def main(argv):
             p_x *= masks
             p_x = tf.reduce_sum(p_x, axis=2, keepdims=True)
             p_x = p_x + (1.0 - tf.expand_dims(mask_sum, axis=2))
-            # p_x = tf.math.log(p_x + 1e-10)
             p_x = tf.reduce_sum(p_x, axis=[3, 4, 5])
             loss_value = -1.0 * tf.reduce_mean(
                 p_x, axis=[1, 2]) + beta * tf.reduce_mean(kl_z, axis=[1, 2])

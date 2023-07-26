@@ -73,24 +73,24 @@ def main(argv):
     num_gpu = mirrored_strategy.num_replicas_in_sync
 
     # Build dataset iterators, optimizers and model.
-    collision_ds = data_utils.debug_iterator(batch_size,
-                                             split="collision",
-                                             shuffle=False)
+    collision_ds = data_utils.load_data(batch_size,
+                                        split="collision",
+                                        shuffle=False)
     collision_ds = mirrored_strategy.experimental_distribute_dataset(
         collision_ds)
-    blocking_ds = data_utils.debug_iterator(batch_size,
-                                            split="blocking",
-                                            shuffle=False)
+    blocking_ds = data_utils.load_data(batch_size,
+                                       split="blocking",
+                                       shuffle=False)
     blocking_ds = mirrored_strategy.experimental_distribute_dataset(
         blocking_ds)
-    permanence_ds = data_utils.debug_iterator(batch_size,
-                                              split="permanence",
-                                              shuffle=False)
+    permanence_ds = data_utils.load_data(batch_size,
+                                         split="permanence",
+                                         shuffle=False)
     permanence_ds = mirrored_strategy.experimental_distribute_dataset(
         permanence_ds)
-    continuity_ds = data_utils.debug_iterator(batch_size,
-                                              split="continuity",
-                                              shuffle=False)
+    continuity_ds = data_utils.load_data(batch_size,
+                                         split="continuity",
+                                         shuffle=False)
     continuity_ds = mirrored_strategy.experimental_distribute_dataset(
         continuity_ds)
 

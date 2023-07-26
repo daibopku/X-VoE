@@ -109,14 +109,12 @@ def main(argv):
     viz = TensorboardViz(logdir=FLAGS.tensorboard_dir)
 
     # Build dataset iterators, optimizers and model.
-    train_ds = data_utils.debug_iterator(batch_size,
-                                         split="train",
-                                         shuffle=True)
+    train_ds = data_utils.load_data(batch_size, split="train", shuffle=True)
     train_ds = mirrored_strategy.experimental_distribute_dataset(train_ds)
 
-    test_ds = data_utils.debug_iterator(batch_size_test,
-                                        split="eval",
-                                        shuffle=False)
+    test_ds = data_utils.load_data(batch_size_test,
+                                   split="eval",
+                                   shuffle=False)
     test_ds = mirrored_strategy.experimental_distribute_dataset(test_ds)
 
     with mirrored_strategy.scope():
