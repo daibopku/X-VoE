@@ -9,7 +9,7 @@ from tensorflow_probability import distributions as tfd
 from tensorboardX import SummaryWriter
 
 import build_data.image_read as data_utils
-import model.perception as model_utils
+import model.model as model_utils
 
 FLAGS = flags.FLAGS
 flags.DEFINE_string("model_dir", "checkpoint/Perception/",
@@ -19,7 +19,7 @@ flags.DEFINE_string("tensorboard_dir", "tensorboard/Perception/",
 flags.DEFINE_integer("seed", 0, "Random seed.")
 flags.DEFINE_string("encode_type", "ViT", "type of encoder model")
 flags.DEFINE_string("decode_type", "SBTD", "type of decoder model")
-flags.DEFINE_integer("batch_size", 30, "Batch size for the model.")
+flags.DEFINE_integer("batch_size", 300, "Batch size for the model.")
 flags.DEFINE_integer("num_frames", 1, "Number of frames in video.")
 flags.DEFINE_integer("num_slots", 8, "Number of slots in Slot Attention.")
 flags.DEFINE_integer("slot_size", 32, "denth of slot.")
@@ -27,7 +27,7 @@ flags.DEFINE_float("DM_factor", -1000.0, "factor of depth to mask")
 flags.DEFINE_float("beta", 0.5, "multiplier of slots kl")
 flags.DEFINE_float("sigma", 0.05, "std of image pixel")
 flags.DEFINE_float("learning_rate", 0.0004, "Learning rate.")
-flags.DEFINE_integer("max_epochs", 1, "Number of training steps.")
+flags.DEFINE_integer("max_epochs", 118, "Number of training steps.")
 flags.DEFINE_integer("warmup_steps", 2000,
                      "Number of warmup steps for the learning rate.")
 flags.DEFINE_float("decay_rate", 0.5, "Rate for the learning rate decay.")
@@ -36,7 +36,6 @@ flags.DEFINE_integer("decay_steps", 100000,
 
 
 class TensorboardViz(object):
-
     def __init__(self, logdir):
         self.logdir = logdir
         self.writter = SummaryWriter(self.logdir)
