@@ -49,25 +49,26 @@ def build_data(split, shuffle=False):
         ]
     elif split in ["collision", "blocking", "continuity"]:
         num_file = 6
-        file_path = os.path.join(file_path_base, split)
+        file_path = os.path.join(file_path_base, "test")
+        file_path = os.path.join(file_path, split)
         filename = [
             os.path.join(file_path, "eval-part-{:0>3}.tfrecord".format(i))
             for i in range(num_file)
         ]
     elif split in ["permanence"]:
         num_file = 4
-        file_path = os.path.join(file_path_base, split)
+        file_path = os.path.join(file_path_base, "test")
+        file_path = os.path.join(file_path, split)
         filename = [
             os.path.join(file_path, "eval-part-{:0>3}.tfrecord".format(i))
             for i in range(4)
         ]
     elif split == "eval":
         num_file = 4
+        file_path = os.path.join(file_path_base, "test")
         eval_list = ["collision", "blocking", "permanence", "continuity"]
-        file_path = file_path_base + '/eval/'
         filename = [
-            file_path_base + i + '/' + "eval-part-000.tfrecord"
-            for i in eval_list
+            file_path + i + '/' + "eval-part-000.tfrecord" for i in eval_list
         ]
     else:
         raise ValueError("Error dataset type")

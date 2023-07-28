@@ -1,7 +1,7 @@
 import tensorflow as tf
-from perception import SBDecoder, SBTDecoder, Decoder, VariationalAutoEncoder, ViTAutoEncoder, SampleNorm
-from explain import FastThink
-from dynamics import InteractionLSTM
+from model.perception import SBDecoder, SBTDecoder, Decoder, VariationalAutoEncoder, ViTAutoEncoder, SampleNorm
+from model.explain import FastThink
+from model.dynamics import InteractionLSTM
 
 
 def build_percept_model(resolution,

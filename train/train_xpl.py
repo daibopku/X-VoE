@@ -12,9 +12,9 @@ import build_data.video_read as data_utils
 import model.model as model_utils
 
 FLAGS = flags.FLAGS
-flags.DEFINE_string("model_dir", "checkpoint/XPL/",
+flags.DEFINE_string("model_dir", "XPL/XPL/",
                     "Where to save the checkpoints.")
-flags.DEFINE_string("perception_dir", "checkpoint/perception/",
+flags.DEFINE_string("perception_dir", "XPL/perception/",
                     "Where to save the checkpoints.")
 flags.DEFINE_string("tensorboard_dir", "tensorboard/XPL/",
                     "Where to save the process.")

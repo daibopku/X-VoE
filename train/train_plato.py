@@ -12,7 +12,7 @@ import build_data.video_read as data_utils
 import model.model as model_utils
 
 FLAGS = flags.FLAGS
-flags.DEFINE_string("model_dir", "checkpoint/PLATO/",
+flags.DEFINE_string("model_dir", "XPL/PLATO/",
                     "Where to save the checkpoints.")
 flags.DEFINE_string("tensorboard_dir", "tensorboard/PLATO/",
                     "Where to save the process.")

@@ -12,7 +12,7 @@ import build_data.image_read as data_utils
 import model.model as model_utils
 
 FLAGS = flags.FLAGS
-flags.DEFINE_string("model_dir", "checkpoint/Perception/",
+flags.DEFINE_string("model_dir", "XPL/Perception/",
                     "Where to save the checkpoints.")
 flags.DEFINE_string("tensorboard_dir", "tensorboard/Perception/",
                     "Where to save the process.")

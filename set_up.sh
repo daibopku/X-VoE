@@ -13,10 +13,10 @@ python -m scripts.make_video_data
 python -m train.train_perception
 
 # train xpl model
-python -m train.train_xpl
+# python -m train.train_xpl
 
 # train plato model
-python -m train.train_plato
+# python -m train.train_plato
 
 # eval xpl model
 python -m eval.eval_xpl

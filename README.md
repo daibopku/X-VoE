@@ -51,7 +51,7 @@ python -m train.train_plato
 When using this code, please cite the paper:
 ```
 @article{dai2023xvoe,
-title = {X-VoE: eXplaining Violation of Expectation in Physical Events},
+title = {X-VoE: Measuring eXplanatory Violation of Expectation in Physical Events},
 author = {Bo Dai, Linge Wang, Chi Zhang, Baoxiong Jia, Zeyu Zhang, Yixin Zhu, Song-Chun Zhu},
 booktitle = {ArXiv},
 year = {2023}

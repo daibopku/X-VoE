@@ -5,16 +5,15 @@ from absl import app
 from absl import flags
 import tensorflow as tf
 from tensorflow.python.platform import tf_logging as logging
-from tensorflow_probability import distributions as tfd
 
 import build_data.video_read as data_utils
 import model.model as model_utils
 from utils.metrix_ds import cal_holistic, cal_comparative, cal_relative
 
 FLAGS = flags.FLAGS
-flags.DEFINE_string("model_dir", "lambda/checkpoint/PLATO/",
+flags.DEFINE_string("model_dir", "XPL/PLATO/",
                     "Where to save the checkpoints.")
-flags.DEFINE_string("perception_dir", "checkpoint/perception/",
+flags.DEFINE_string("perception_dir", "XPL/perception/",
                     "Where to save the checkpoints.")
 flags.DEFINE_integer("seed", 0, "Random seed.")
 flags.DEFINE_integer("batch_size", 20, "Batch size for the model.")

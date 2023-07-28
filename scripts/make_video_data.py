@@ -75,8 +75,8 @@ def write_images_to_tfr_short(data, writer):
 
 def main(argv):
     del argv
-    videofilepath = "dataset/train/"
-    imagefilepath = "dataset/image/"
+    videofilepath = "X-VoE/train/"
+    imagefilepath = "X-VoE/image/"
     os.mkdir(imagefilepath)
     num_file = 100
     filename = [
