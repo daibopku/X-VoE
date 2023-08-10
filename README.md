@@ -8,6 +8,11 @@ Code for our ArXiv paper "X-VoE: Measuring eXplanatory Violation of Expectation 
 ## Abstract
 Intuitive physics plays one of the most fundamental roles in helping people make sense of the physical world. Via intuitive physics, we understand physical activities in the world by predicting future events and explicating observed events, even from infancy. Yet, how to create artificial intelligence that learns and uses intuitive physics at the human level remains elusive for the learning community. In this work, we propose a comprehensive benchmark X-VoE both as an evaluative tool and a challenge for artificial agents, measuring their intuitive physics learning via the Violation of Expectation (VoE) paradigm rooted in the community of developmental psychology. Compared to existing datasets, X-VoE places higher demands on the explanatory ability of intuitive physics models. Specifically, in each VoE scenario, we design three distinctive settings to verify the models' understanding of the events, demanding not only simple predictive but also explicative abilities. Apart from measuring the performance of off-the-shelf models on our benchmark, we also devise an explanation-based learning system that jointly learns physics dynamics and infers occluded object states by learning only from observed visual sequences (without the unobserved occlusion label). In experiments, we demonstrate that our model shows more consistent behaviors aligned with human commonsense in X-VoE. Crucially, our model can visually explain a VoE event by reconstructing the hidden scenes. Finally, we discuss the implication of experimental results and future direction.
 
+## Environment
+The project is developed and tested with python 3.8, tensorflow 2.8 and cuda 11.5, but any version newer than that should work. For simple installation of the packages needed, please install requirements.txt.
+```
+pip install -r requirements.txt
+```
 ## Dataset and Checkpoint
 
 The dataset can be downloaded using the script download_dataset.sh.
