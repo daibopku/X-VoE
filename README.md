@@ -19,7 +19,7 @@ The dataset can be downloaded using the script download_dataset.sh.
 ```
 bash scripts/download_dataset.sh
 ```
-The dataset is saved as tfrecord file and can be read by video_read.py.
+The dataset is saved as tfrecord file and can be read by build_data/video_read.py.
 
 The checkpoint of perception, xpl and plato can be downloaded using the script download_pretrained_model.sh
 ```
