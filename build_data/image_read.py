@@ -11,7 +11,6 @@ import os
 
 # @tf.function
 def build_data(train_size, test_size, shuffle=False):
-    """Build CLEVR dataset."""
     num_file = 100
 
     def _parse_tfr_element(element):
