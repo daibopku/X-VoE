@@ -4,7 +4,6 @@ import tensorflow as tf
 
 # @tf.function
 def build_data(split, shuffle=False):
-    """Build CLEVR dataset."""
     file_path_base = 'X-VoE/'
 
     # file_path_base = '/scratch/LargeTaskPlatform/daibo/VoE_dataset/'
