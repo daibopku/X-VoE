@@ -99,7 +99,6 @@ class SampleParseTree(layers.Layer):
 
 
 class FastThink(layers.Layer):
-    """Slot Attention module."""
     def __init__(self,
                  num_frames,
                  num_slots,
