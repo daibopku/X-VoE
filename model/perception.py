@@ -30,23 +30,14 @@ class Transformer(layers.Layer):
 
 
 def unstack_and_split(x, num_channels=3):
-    """Unstack batch dimension and split into channels and alpha mask."""
     masks = x[..., 3:4]
     channels = x
     return channels, masks
 
 
 class VariationalAutoEncoder(layers.Layer):
-    """Slot Attention-based auto-encoder for object discovery."""
 
     def __init__(self, resolution, slot_size, **kwargs):
-        """Builds the Slot Attention-based auto-encoder.
-
-        Args:
-          resolution: Tuple of integers specifying width and height of input image.
-          num_slots: Number of slots in Slot Attention.
-          num_iterations: Number of iterations in Slot Attention.
-        """
         super(VariationalAutoEncoder, self).__init__(**kwargs)
         self.resolution = resolution
         self.slot_size = slot_size
@@ -95,16 +86,8 @@ class VariationalAutoEncoder(layers.Layer):
 
 
 class ViTAutoEncoder(layers.Layer):
-    """Slot Attention-based auto-encoder for object discovery."""
 
     def __init__(self, resolution, slot_size, num_channels, **kwargs):
-        """Builds the Slot Attention-based auto-encoder.
-
-        Args:
-          resolution: Tuple of integers specifying width and height of input image.
-          num_slots: Number of slots in Slot Attention.
-          num_iterations: Number of iterations in Slot Attention.
-        """
         super(ViTAutoEncoder, self).__init__(**kwargs)
         self.resolution = resolution
         self.slot_size = slot_size
